@@ -49,17 +49,7 @@ mf.comp.TxtHeader = class extends Header {
         try {
             if (undefined === prm) {
                 /* getter */
-                let chd = this.child();
-                let ret = new Array();
-                for (let idx in chd) {
-                    if (true === mf.func.isInclude(chd[idx], 'Text')) {
-                        ret.push(chd[idx]);
-                    }
-                }
-                if (0 === ret.length) {
-                    return null;
-                }
-                return (1 === ret.length) ? ret[0] : ret;
+                return (undefined === this.m_txthdr_txt) ? [] : this.m_txthdr_txt;
             }
             /* setter */
             if ('string' === typeof prm) {
@@ -73,6 +63,11 @@ mf.comp.TxtHeader = class extends Header {
             this.execAutoResize(prm);
             
             this.addChild(prm);
+            
+            if (undefined === this.m_txthdr_txt) {
+                this.m_txthdr_txt = new Array();
+            }
+            this.m_txthdr_txt.push(prm);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -147,11 +142,11 @@ mf.comp.TxtHeader = class extends Header {
     execAutoResize (prm) {
         try {
             if (undefined === prm) {
-                let chd = this.child();
-                for (let cidx in chd) {
-                    this.execAutoResize(chd[cidx]);
+                let txt = this.text();
+                for (let tidx in txt) {
+                    this.execAutoResize(txt[tidx]);
                 }
-                return;
+                return false;
             }
             
             if (true === this.autoResize()[0]) {
@@ -161,7 +156,22 @@ mf.comp.TxtHeader = class extends Header {
                 } else {
                     prm.height(this.height() - ofs);
                 }
+                return true;
             }
+            return false;
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    height (prm) {
+        try {
+            let ret = super.height(prm);
+            if (undefined === ret) {
+                this.execAutoResize();
+            }
+            return ret;
         } catch (e) {
             console.error(e.stack);
             throw e;
