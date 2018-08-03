@@ -20,6 +20,7 @@ mf.comp.TxtHeader = class extends Header {
         try {
             super();
             this.name('txtheader');
+            this.prmMap('text');
             this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
@@ -32,13 +33,12 @@ mf.comp.TxtHeader = class extends Header {
      * 
      * @param prm : (string) header text
      */
-    initDomConts (prm) {
+    initDomConts () {
         try {
             super.initDomConts();
             this.target().style({
-                'align-items'  : 'center',
+                'align-items' : 'center',
             });
-            this.text(prm);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -74,6 +74,11 @@ mf.comp.TxtHeader = class extends Header {
         }
     }
     
+    /**
+     * invert flag for text color
+     * 
+     * invert white/black text color according to background color if flag is true
+     */
     invert (prm) {
         try {
             if (undefined === prm) {
@@ -105,10 +110,10 @@ mf.comp.TxtHeader = class extends Header {
                 return;
             }
             
-            if ( (true === this.invert()) &&
-                 (null !== this.color())  &&
+            if ( (true === this.invert())   &&
+                 (null !== this.color()[1]) &&
                  (null === prm.color()) ) {
-                let rgb = this.color().rgba();
+                let rgb = this.color()[1].rgba();
                 let clr = (290 > (rgb[0]+rgb[1]+rgb[2])) ?
                           new mf.Color(255,255,255) : new mf.Color(0,0,0);
                 prm.color(clr);
