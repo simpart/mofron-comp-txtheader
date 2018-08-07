@@ -116,7 +116,9 @@ mf.comp.TxtHeader = class extends Header {
                 let rgb = this.color()[1].rgba();
                 let clr = (290 > (rgb[0]+rgb[1]+rgb[2])) ?
                           new mf.Color(255,255,255) : new mf.Color(0,0,0);
-                prm.color(clr);
+                prm.execOption({
+                    mainColor : clr
+                });
             }
         } catch (e) {
             console.error(e.stack);
@@ -128,7 +130,7 @@ mf.comp.TxtHeader = class extends Header {
         try {
             if (undefined === flg) {
                 /* getter */
-                return (undefined === this.m_autoresiz) ? [true, 5] : this.m_autoresiz;
+                return (undefined === this.m_autoresiz) ? [true, 20] : this.m_autoresiz;
             }
             /* setter */
             if ('boolean' !== typeof flg) {
@@ -137,7 +139,7 @@ mf.comp.TxtHeader = class extends Header {
             if ((undefined !== ofs) && ('number' !== typeof ofs)) {
                 throw new Error('invalid parameter');
             }
-            this.m_autoresiz = [flg, (undefined === ofs) ? 5 : ofs];
+            this.m_autoresiz = [flg, (undefined === ofs) ? 20 : ofs];
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -157,9 +159,13 @@ mf.comp.TxtHeader = class extends Header {
             if (true === this.autoResize()[0]) {
                 let ofs = this.autoResize()[1];
                 if (true === mf.func.isInclude(prm, 'Text')) {
-                    prm.size(this.height() - ofs);
+                    prm.execOption({
+                        size : (this.height() - ofs) / 100
+                    })
                 } else {
-                    prm.height(this.height() - ofs);
+                    prm.execOption({
+                        height : this.height() - ofs
+                    });
                 }
                 return true;
             }
