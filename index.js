@@ -160,11 +160,11 @@ mf.comp.TxtHeader = class extends Header {
                 let ofs = this.autoResize()[1];
                 if (true === mf.func.isInclude(prm, 'Text')) {
                     prm.execOption({
-                        size : (this.height() - ofs) / 100
+                        size : this.height() - 0.2
                     })
                 } else {
                     prm.execOption({
-                        height : this.height() - ofs
+                        height : this.height() - 0.2
                     });
                 }
                 return true;
