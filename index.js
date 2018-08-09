@@ -2,9 +2,9 @@
  * @file   mofron-comp-txtheader/index.js
  * @author simpart
  */
-const mf = require('mofron');
+const mf     = require('mofron');
 const Header = require('mofron-comp-header');
-const Text = require('mofron-comp-text');
+const Text   = require('mofron-comp-text');
 
 /**
  * @class mofron.comp.TxtHeader
@@ -130,7 +130,7 @@ mf.comp.TxtHeader = class extends Header {
         try {
             if (undefined === flg) {
                 /* getter */
-                return (undefined === this.m_autoresiz) ? [true, 20] : this.m_autoresiz;
+                return (undefined === this.m_autoresiz) ? [true, 0.2] : this.m_autoresiz;
             }
             /* setter */
             if ('boolean' !== typeof flg) {
@@ -139,7 +139,7 @@ mf.comp.TxtHeader = class extends Header {
             if ((undefined !== ofs) && ('number' !== typeof ofs)) {
                 throw new Error('invalid parameter');
             }
-            this.m_autoresiz = [flg, (undefined === ofs) ? 20 : ofs];
+            this.m_autoresiz = [flg, (undefined === ofs) ? 0.2 : ofs];
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -157,16 +157,16 @@ mf.comp.TxtHeader = class extends Header {
             }
             
             if (true === this.autoResize()[0]) {
-                let ofs = this.autoResize()[1];
-                if (true === mf.func.isInclude(prm, 'Text')) {
-                    prm.execOption({
-                        size : this.height() - 0.2
-                    })
-                } else {
-                    prm.execOption({
-                        height : this.height() - 0.2
-                    });
-                }
+                mofron.func.compSize(
+                    prm,
+                    (true === mf.func.isInclude(prm, 'Text')) ? 'font-size' : 'height',
+                    mf.func.sizeDiff(this.height(), 0.2)
+                );
+                mofron.func.compSize(
+                    prm, 
+                    'margin-left',
+                    this.autoResize()[1]
+                );
                 return true;
             }
             return false;
