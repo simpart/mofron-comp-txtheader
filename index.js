@@ -116,9 +116,7 @@ mf.comp.TxtHeader = class extends Header {
                 let rgb = this.color()[1].rgba();
                 let clr = (290 > (rgb[0]+rgb[1]+rgb[2])) ?
                           new mf.Color(255,255,255) : new mf.Color(0,0,0);
-                prm.execOption({
-                    mainColor : clr
-                });
+                prm.execOption({ mainColor : clr });
             }
         } catch (e) {
             console.error(e.stack);
@@ -130,16 +128,16 @@ mf.comp.TxtHeader = class extends Header {
         try {
             if (undefined === flg) {
                 /* getter */
-                return (undefined === this.m_autoresiz) ? [true, 0.2] : this.m_autoresiz;
+                return (undefined === this.m_autoresiz) ? [true, '0.2rem'] : this.m_autoresiz;
             }
             /* setter */
             if ('boolean' !== typeof flg) {
                 throw new Error('invalid parameter');
             }
-            if ((undefined !== ofs) && ('number' !== typeof ofs)) {
+            if ((undefined !== ofs) && ('string' !== typeof ofs)) {
                 throw new Error('invalid parameter');
             }
-            this.m_autoresiz = [flg, (undefined === ofs) ? 0.2 : ofs];
+            this.m_autoresiz = [flg, (undefined === ofs) ? '0.2rem' : ofs];
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -157,16 +155,15 @@ mf.comp.TxtHeader = class extends Header {
             }
             
             if (true === this.autoResize()[0]) {
-                mofron.func.compSize(
-                    prm,
-                    (true === mf.func.isInclude(prm, 'Text')) ? 'font-size' : 'height',
-                    mf.func.sizeDiff(this.height(), 0.2)
-                );
-                mofron.func.compSize(
-                    prm, 
-                    'margin-left',
-                    this.autoResize()[1]
-                );
+                prm.execOption({
+                    sizeValue : new mf.Param(
+                        (true === mf.func.isInclude(prm, 'Text')) ? 'font-size' : 'height',
+                        mf.func.sizeDiff(this.height(), '0.2rem')
+                    ),
+                });
+                prm.execOption({
+                    sizeValue : new mf.Param('margin-left', this.autoResize()[1])
+                });
                 return true;
             }
             return false;
@@ -189,5 +186,5 @@ mf.comp.TxtHeader = class extends Header {
         }
     }
 }
-module.exports = mofron.comp.TxtHeader;
+module.exports = mf.comp.TxtHeader;
 /* end of file */
