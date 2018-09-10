@@ -162,7 +162,10 @@ mf.comp.TxtHeader = class extends Header {
                     ),
                 });
                 prm.execOption({
-                    sizeValue : new mf.Param('margin-left', this.autoResize()[1])
+                    style : new mf.Param(
+                        { 'margin-left' :  this.autoResize()[1] },
+                        true
+                    )
                 });
                 return true;
             }
