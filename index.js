@@ -19,7 +19,7 @@ mf.comp.TxtHeader = class extends Header {
     constructor (po) {
         try {
             super();
-            this.name('txtheader');
+            this.name('TxtHeader');
             this.prmMap('text');
             this.prmOpt(po);
         } catch (e) {
