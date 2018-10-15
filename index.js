@@ -1,21 +1,18 @@
 /**
  * @file   mofron-comp-txtheader/index.js
+ * @brief  text header component
  * @author simpart
  */
 const mf     = require('mofron');
 const Header = require('mofron-comp-header');
 const Text   = require('mofron-comp-text');
-
+const Invclr = require('mofron-effect-invclr');
+const Synhei = require('mofron-effect-synchei');
 /**
  * @class mofron.comp.TxtHeader
  * @brief text header contents component for mofron
  */
 mf.comp.TxtHeader = class extends Header {
-    /**
-     * initialize component
-     * 
-     * @param po header text or option
-     */
     constructor (po) {
         try {
             super();
@@ -31,43 +28,13 @@ mf.comp.TxtHeader = class extends Header {
     /**
      * initialize dom contents
      * 
-     * @param prm : (string) header text
+     * @note private method
      */
     initDomConts () {
         try {
             super.initDomConts();
-            this.target().style({
-                'align-items' : 'center',
-            });
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    text (prm) {
-        try {
-            if (undefined === prm) {
-                /* getter */
-                return (undefined === this.m_txthdr_txt) ? [] : this.m_txthdr_txt;
-            }
-            /* setter */
-            if ('string' === typeof prm) {
-                prm = new Text(prm);
-            } else if (true !== mf.func.isInclude(prm, 'Text')) {
-                throw new Error('invalid parameter');
-            }
-            /* set color */
-            this.execInvert(prm);
-            /* set height */
-            this.execAutoResize(prm);
-            
-            this.addChild(prm);
-            
-            if (undefined === this.m_txthdr_txt) {
-                this.m_txthdr_txt = new Array();
-            }
-            this.m_txthdr_txt.push(prm);
+            this.style({ 'align-items' : 'center' });
+            this.addChild(this.text());
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -75,114 +42,68 @@ mf.comp.TxtHeader = class extends Header {
     }
     
     /**
-     * invert flag for text color
-     * 
-     * invert white/black text color according to background color if flag is true
+     * setter/getter text
+     *
+     * @param txt (string) set text contents
+     * @param txt (mf.comp.Text) update text object
+     * @param txt (undefined) call as getter
+     * @return text contents
      */
-    invert (prm) {
+    text (txt) {
         try {
-            if (undefined === prm) {
-                /* getter */
-                return (undefined === this.m_invert) ? true : this.m_invert;
-            }
-            /* setter */
-            if ('boolean' !== typeof prm) {
-                throw new Error('invalid parameter');
-            }
-            this.m_invert = prm;
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    execInvert (prm) {
-        try {
-            if (undefined === prm) {
-                let txt = this.text();
-                if (true === mf.func.isInclude(txt, 'Text')) {
-                    return this.execInvert(txt);
-                } else if (true === Array.isArray(txt)) {
-                    for (let tidx in txt) {
-                        this.execInvert(txt[tidx]);
-                    }
-                }
+            if ('string' === typeof txt) {
+                this.text().execOption({ text : txt });
                 return;
-            }
-            
-            if ( (true === this.invert())   &&
-                 (null !== this.color()[1]) &&
-                 (null === prm.color()) ) {
-                let rgb = this.color()[1].rgba();
-                let clr = (290 > (rgb[0]+rgb[1]+rgb[2])) ?
-                          new mf.Color(255,255,255) : new mf.Color(0,0,0);
-                prm.execOption({ mainColor : clr });
-            }
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    autoResize (flg, ofs) {
-        try {
-            if (undefined === flg) {
-                /* getter */
-                return (undefined === this.m_autoresiz) ? [true, '0.2rem'] : this.m_autoresiz;
-            }
-            /* setter */
-            if ('boolean' !== typeof flg) {
-                throw new Error('invalid parameter');
-            }
-            if ((undefined !== ofs) && ('string' !== typeof ofs)) {
-                throw new Error('invalid parameter');
-            }
-            this.m_autoresiz = [flg, (undefined === ofs) ? '0.2rem' : ofs];
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    execAutoResize (prm) {
-        try {
-            if (undefined === prm) {
-                let txt = this.text();
-                for (let tidx in txt) {
-                    this.execAutoResize(txt[tidx]);
-                }
-                return false;
-            }
-            
-            if (true === this.autoResize()[0]) {
-                prm.execOption({
-                    sizeValue : new mf.Param(
-                        (true === mf.func.isInclude(prm, 'Text')) ? 'font-size' : 'height',
-                        mf.func.sizeDiff(this.height(), '0.2rem')
-                    ),
+            } else if (true === mf.func.isInclude(txt, 'Text')) {
+                txt.execOption({
+                    style  : [{ 'margin-left' : '0.2rem' }, true],
+                    effect : [
+                        new Invclr([this, 'background'], 'mainColor'),
+                        new Synhei(this, '-0.2rem')
+                    ]
                 });
-                prm.execOption({
-                    style : new mf.Param(
-                        { 'margin-left' :  this.autoResize()[1] },
-                        true
-                    )
-                });
-                return true;
             }
-            return false;
+            return this.innerComp('text', txt, Text);
         } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
     
-    height (prm) {
+    /**
+     * setter/getter invert flag
+     * true flag changes text color when background color changed
+     * 
+     * @param flg (true) enable invert changing (default)
+     * @param flg (false) disable invert changing
+     * @return (boolean) invert flag
+     */
+    invert (flg) {
         try {
-            let ret = super.height(prm);
-            if (undefined === ret) {
-                this.execAutoResize();
+            if (undefined !== flg) {
+                this.effect('Invclr').suspend(!flg);
             }
-            return ret;
+            return !(this.effect('Invclr').suspend());
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    /**
+     * setter/getter synchronize height flag
+     * true flag changes text size when header height changed
+     * 
+     * @param flg (true) enable invert changing (default)
+     * @param flg (false) disable invert changing
+     * @return (boolean) invert flag
+     */
+    synchei (flg) {
+        try {
+            if (undefined !== flg) {
+                this.effect('SyncHei').suspend(!flg);
+            }
+            return !(this.effect('SyncHei').suspend());
         } catch (e) {
             console.error(e.stack);
             throw e;
