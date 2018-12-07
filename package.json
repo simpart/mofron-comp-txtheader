@@ -1,6 +1,6 @@
 {
   "name": "mofron-comp-txtheader",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "text header component for mofron",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/simpart/mofron-comp-txtheader.git"
+  },
+  "dependencies": {
+    "mofron-comp-header" : ""
   },
   "keywords": [
     "front-end"

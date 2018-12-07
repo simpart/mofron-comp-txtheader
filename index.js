@@ -57,10 +57,7 @@ mf.comp.TxtHeader = class extends Header {
             } else if (true === mf.func.isInclude(txt, 'Text')) {
                 txt.execOption({
                     style  : [{ 'margin-left' : '0.2rem' }, true],
-                    effect : [
-                        new Invclr([this, 'background'], 'mainColor'),
-                        new Synhei(this, '-0.2rem')
-                    ]
+                    effect : [ new Synhei(this, '-0.2rem') ]
                 });
             }
             return this.innerComp('text', txt, Text);
