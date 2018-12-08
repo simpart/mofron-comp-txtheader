@@ -56,7 +56,7 @@ mf.comp.TxtHeader = class extends Header {
                 return;
             } else if (true === mf.func.isInclude(txt, 'Text')) {
                 txt.execOption({
-                    style  : [{ 'margin-left' : '0.2rem' }, true],
+                    style  : [ { 'margin-left' : '0.2rem' }, true],
                     effect : [ new Synhei(this, '-0.2rem') ]
                 });
             }
