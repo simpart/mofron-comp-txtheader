@@ -44,19 +44,19 @@ mf.comp.TxtHeader = class extends Header {
     /**
      * setter/getter text
      *
-     * @param txt (string) set text contents
-     * @param txt (mf.comp.Text) update text object
-     * @param txt (undefined) call as getter
+     * @param p1 (string) set text contents
+     * @param p1 (Text) update text object
+     * @param p1 (undefined) call as getter
      * @return text contents
      */
-    text (txt) {
+    text (txt, dct) {
         try {
             if ('string' === typeof txt) {
                 this.text().execOption({ text : txt });
                 return;
-            } else if (true === mf.func.isInclude(txt, 'Text')) {
+            } else if ( (true === mf.func.isComp(txt, 'Text')) && (true !== dct) ) {
                 txt.execOption({
-                    style  : [ { 'margin-left' : '0.2rem' }, true],
+                    style  : [ {'margin-left' : '0.2rem'}, true],
                     effect : [ new Synhei(this, '-0.2rem') ]
                 });
             }
@@ -77,10 +77,10 @@ mf.comp.TxtHeader = class extends Header {
      */
     invert (flg) {
         try {
-            if (undefined !== flg) {
-                this.effect('Invclr').suspend(!flg);
-            }
-            return !(this.effect('Invclr').suspend());
+            let ret = this.effect('Invclr').suspend(
+                (undefined !== flg) : !flg : flg
+            );
+            return (undefined !== ret) ? !ret : ret;
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -97,10 +97,10 @@ mf.comp.TxtHeader = class extends Header {
      */
     synchei (flg) {
         try {
-            if (undefined !== flg) {
-                this.effect('SyncHei').suspend(!flg);
-            }
-            return !(this.effect('SyncHei').suspend());
+            let ret = this.effect('SyncHei').suspend(
+                (undefined !== flg) : !flg : flg
+            );
+            return (undefined !== ret) ? !ret : ret;
         } catch (e) {
             console.error(e.stack);
             throw e;
