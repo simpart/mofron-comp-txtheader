@@ -78,7 +78,7 @@ mf.comp.TxtHeader = class extends Header {
     invert (flg) {
         try {
             let ret = this.effect('Invclr').suspend(
-                (undefined !== flg) : !flg : flg
+                (undefined !== flg)? !flg : flg
             );
             return (undefined !== ret) ? !ret : ret;
         } catch (e) {
@@ -98,7 +98,7 @@ mf.comp.TxtHeader = class extends Header {
     synchei (flg) {
         try {
             let ret = this.effect('SyncHei').suspend(
-                (undefined !== flg) : !flg : flg
+                (undefined !== flg)?  !flg : flg
             );
             return (undefined !== ret) ? !ret : ret;
         } catch (e) {
