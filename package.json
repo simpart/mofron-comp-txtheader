@@ -1,6 +1,6 @@
 {
   "name": "mofron-comp-txtheader",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "text header component for mofron",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,6 @@
   "dependencies": {
     "mofron-comp-header" : "",
     "mofron-comp-text" : "",
-    "mofron-effect-invclr" : "",
     "mofron-effect-synchei" : ""
   },
   "keywords": [
