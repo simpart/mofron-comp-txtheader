@@ -1,0 +1,5 @@
+<require>
+    <tag module="mofron-comp-txtheader">TxtHeader</tag>
+</require>
+
+<TxtHeader>Text Header</TxtHeader>

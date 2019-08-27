@@ -8,11 +8,15 @@ const Header = require('mofron-comp-header');
 const Text   = require('mofron-comp-text');
 const Synhei = require('mofron-effect-synchei');
 
-/**
- * @class mofron.comp.TxtHeader
- * @brief text header contents component for mofron
- */
 mf.comp.TxtHeader = class extends Header {
+    /**
+     * initialize component
+     * 
+     * @param (mixed) text parameter
+     *                object: component option
+     * @pmap text
+     * @type private
+     */
     constructor (po) {
         try {
             super();
@@ -28,7 +32,7 @@ mf.comp.TxtHeader = class extends Header {
     /**
      * initialize dom contents
      * 
-     * @note private method
+     * @type private
      */
     initDomConts () {
         try {
@@ -44,10 +48,11 @@ mf.comp.TxtHeader = class extends Header {
     /**
      * setter/getter text
      *
-     * @param p1 (string) set text contents
-     * @param p1 (Text) update text object
-     * @param p1 (undefined) call as getter
-     * @return text contents
+     * @param (mixed) string: text contents
+     *                mofron-comp-text: update text component
+     * @param (string (size)) margin-left value
+     * @return (mofron-comp-text) text contents
+     * @type parameter
      */
     text (txt, lft) {
         try {
@@ -79,9 +84,10 @@ mf.comp.TxtHeader = class extends Header {
      * setter/getter synchronize height flag
      * true flag changes text size when header height changed
      * 
-     * @param flg (true) enable invert changing (default)
-     * @param flg (false) disable invert changing
+     * @param (boolean) true: enable invert changing (default)
+     *                  false: disable invert changing
      * @return (boolean) invert flag
+     * @type parameter
      */
     synchei (flg) {
         try {
