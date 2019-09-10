@@ -69,7 +69,7 @@ mf.comp.TxtHeader = class extends Header {
                         (undefined === lft) ? true : false
                     ],
                     effect: [
-                        new Synhei({ targetComp: this, offset: '-0.2rem', tag: this.name() + '-text' }),
+                        new Synhei({ targetComp: this, tag: this.name() + '-text' }),
                     ]
                 });
             }
