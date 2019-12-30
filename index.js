@@ -1,28 +1,33 @@
 /**
- * @file   mofron-comp-txtheader/index.js
- * @brief  text header component
- * @author simpart
+ * @file  mofron-comp-txtheader/index.js
+ * @brief text header component
+ *        text in this component is positioned centrally in vertical in automatically. 
+ * @license MIT
  */
-const mf     = require('mofron');
 const Header = require('mofron-comp-header');
 const Text   = require('mofron-comp-text');
 const Synhei = require('mofron-effect-synchei');
+const cmputl = mofron.util.component;
+const comutl = mofron.util.common;
 
-mf.comp.TxtHeader = class extends Header {
+module.exports = class extends Header {
     /**
      * initialize component
      * 
      * @param (mixed) text parameter
-     *                object: component option
-     * @pmap text
+     *                key-value: component option
+     * @short text
      * @type private
      */
-    constructor (po) {
+    constructor (p1) {
         try {
             super();
             this.name('TxtHeader');
-            this.prmMap('text');
-            this.prmOpt(po);
+            this.shortForm('text');
+            
+            if (0 < arguments.length) {
+                this.config(p1);
+            }
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -38,7 +43,8 @@ mf.comp.TxtHeader = class extends Header {
         try {
             super.initDomConts();
             this.style({ 'align-items' : 'center' });
-            this.addChild(this.text());
+            this.child(this.text());
+	    this.text().effect(new Synhei(this));
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -54,24 +60,11 @@ mf.comp.TxtHeader = class extends Header {
      * @return (mofron-comp-text) text contents
      * @type parameter
      */
-    text (txt, lft) {
+    text (txt) {
         try {
             if ('string' === typeof txt) {
-                this.text().option({ text :txt });
-                if (undefined !== lft) {
-                    this.text().option({ style: {'margin-left' : lft} });
-                }
+                this.text().text(txt);
                 return;
-            } else if (true === mf.func.isComp(txt, 'Text')) {
-                txt.option({
-                    style : [
-                        { 'margin-left' : (undefined === lft) ? '0.2rem' : lft },
-                        (undefined === lft) ? true : false
-                    ],
-                    effect: [
-                        new Synhei({ targetComp: this, tag: this.name() + '-text' }),
-                    ]
-                });
             }
             return this.innerComp('text', txt, Text);
         } catch (e) {
@@ -81,25 +74,23 @@ mf.comp.TxtHeader = class extends Header {
     }
     
     /**
-     * setter/getter synchronize height flag
-     * true flag changes text size when header height changed
+     * text position and size offset
      * 
-     * @param (boolean) true: enable invert changing (default)
-     *                  false: disable invert changing
-     * @return (boolean) invert flag
-     * @type parameter
+     * @param (string (size)) left offset position
+     * @param (string (size)) height offset position
+     * 
      */
-    synchei (flg) {
+    txtpos (lft, hei) {
         try {
-            let ret = this.text().effect(['SyncHei', this.name() + '-text']).suspend(
-                ('boolean' === typeof flg) ? !flg : undefined
-            );
-            return (undefined !== ret) ? !ret: undefined;
-        } catch (e) {
+            this.text().style({ "margin-left" : lft });
+	    let syn = this.text().effect({ name: "SyncHei" });
+	    if (true === comutl.isinc(syn, "SyncHei") ) {
+                syn.offset(off);
+	    }
+	} catch (e) {
             console.error(e.stack);
             throw e;
-        }
+	}
     }
 }
-module.exports = mf.comp.TxtHeader;
 /* end of file */

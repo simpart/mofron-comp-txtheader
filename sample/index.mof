@@ -2,4 +2,4 @@
     <tag module="mofron-comp-txtheader">TxtHeader</tag>
 </require>
 
-<TxtHeader>Text Header</TxtHeader>
+<Header txtpos=(0.3rem,-0.2rem)>Text Header</Header>
