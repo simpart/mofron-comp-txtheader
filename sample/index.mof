@@ -1,5 +1,5 @@
 <require>
-    <tag module="mofron-comp-txtheader">TxtHeader</tag>
+    <tag load="mofron-comp-txtheader">TxtHeader</tag>
 </require>
 
 <Header txtpos=(0.3rem,-0.2rem)>Text Header</Header>
