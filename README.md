@@ -8,13 +8,13 @@ text in this component is positioned centrally in vertical in automatically.
 
 # Install
 ```
-npm install mofron  mofron-comp-txtheader
+npm install mofron mofron-comp-txtheader
 ```
 
 # Sample
 ```html
 <require>
-    <tag module="mofron-comp-txtheader">TxtHeader</tag>
+    <tag load="mofron-comp-txtheader">TxtHeader</tag>
 </require>
 
 <Header txtpos=(0.3rem,-0.2rem)>Text Header</Header>
