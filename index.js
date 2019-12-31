@@ -85,7 +85,7 @@ module.exports = class extends Header {
             this.text().style({ "margin-left" : lft });
 	    let syn = this.text().effect({ name: "SyncHei" });
 	    if (true === comutl.isinc(syn, "SyncHei") ) {
-                syn.offset(off);
+                syn.offset(hei);
 	    }
 	} catch (e) {
             console.error(e.stack);
