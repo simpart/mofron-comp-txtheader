@@ -8,7 +8,7 @@ text in this component is positioned centrally in vertical in automatically.
 
 # Install
 ```
-npm install mofron mofron-comp-txtheader
+npm install mofron  mofron-comp-txtheader
 ```
 
 # Sample
@@ -26,7 +26,7 @@ npm install mofron mofron-comp-txtheader
 |:-------------:|:---------------|:-----|:------------|
 | ◯  | text | mixed | string: text contents |
 | | | | mofron-comp-text: update text component |
-| | | string (size) | margin-left value |
+| | | key-value | text config |
 | | txtpos | string (size) | left offset position |
 | | | string (size) | height offset position |
 | | | |  |

@@ -1,6 +1,6 @@
 {
   "name": "mofron-comp-txtheader",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "description": "text header component for mofron",
   "main": "index.js",
   "scripts": {

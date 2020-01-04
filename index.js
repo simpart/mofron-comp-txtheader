@@ -56,12 +56,19 @@ module.exports = class extends Header {
      *
      * @param (mixed) string: text contents
      *                mofron-comp-text: update text component
-     * @param (string (size)) margin-left value
+     * @param (key-value) text config
      * @return (mofron-comp-text) text contents
      * @type parameter
      */
-    text (txt) {
+    text (txt, cnf) {
         try {
+	    if (undefined !== cnf) {
+                if (true === comutl.isinc(txt, "Text")) {
+                    txt.config(cnf);
+		} else {
+                    this.text().config(cnf);
+		}
+	    }
             if ('string' === typeof txt) {
                 this.text().text(txt);
                 return;
