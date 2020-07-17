@@ -44,7 +44,7 @@ module.exports = class extends Header {
             super.initDomConts();
             this.style({ 'align-items' : 'center' });
             this.child(this.text());
-	    this.text().effect(new Synhei(this));
+	    this.text().effect(new Synhei(this,"-0.1rem"));
         } catch (e) {
             console.error(e.stack);
             throw e;
