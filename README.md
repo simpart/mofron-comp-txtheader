@@ -13,9 +13,9 @@ npm install mofron  mofron-comp-txtheader
 
 # Sample
 ```html
-<require>
+<setting>
     <tag load="mofron-comp-txtheader">TxtHeader</tag>
-</require>
+</setting>
 
 <Header txtpos=(0.3rem,-0.2rem)>Text Header</Header>
 ```

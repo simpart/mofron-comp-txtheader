@@ -22,7 +22,7 @@ module.exports = class extends Header {
     constructor (p1) {
         try {
             super();
-            this.name('TxtHeader');
+            this.modname('TxtHeader');
             this.shortForm('text');
             
             if (0 < arguments.length) {
