@@ -42,9 +42,10 @@ module.exports = class extends Header {
     initDomConts () {
         try {
             super.initDomConts();
-            this.style({ 'align-items' : 'center' });
+            let pvt = { private:true };
+            this.style({ 'align-items':'center' }, pvt);
             this.child(this.text());
-	    this.text().effect(new Synhei(this));
+	    this.text().effect(new Synhei(this), pvt);
         } catch (e) {
             console.error(e.stack);
             throw e;
