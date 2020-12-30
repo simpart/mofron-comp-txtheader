@@ -42,7 +42,7 @@ module.exports = class extends Header {
     initDomConts () {
         try {
             super.initDomConts();
-            this.style({ 'align-items':'center' }, pvt);
+            this.style({ 'align-items':'center' }, { private:true });
             this.child(this.text());
 	    this.text().effect(new Synhei(this));
         } catch (e) {
